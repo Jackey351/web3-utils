@@ -1,0 +1,11 @@
+
+[[redirects]]
+from = "/create-iframe-room"
+to = "https://api.huddle01.com/api/v1/create-iframe-room"
+status = 200
+headers = { Content-Type = "application/json", x-api-key = "83fr6rDY1UBBE4N2wrVmlUSMVSzFR-x9", X-XSS-Protection = "0", X-Permitted-Cross-Domain-Policies = "none", Cross-Origin-Embedder-Policy = "require-corp", Cross-Origin-Opener-Policy = "same-origin", Cross-Origin-Resource-Policy = "same-origin", Referrer-Policy = "no-referrer", Server = "Caddy", X-Content-Type-Options = "nosniff", X-Dns-Prefetch-Control = "off", X-Download-Options = "noopen", X-Frame-Options = "SAMEORIGIN" }
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
