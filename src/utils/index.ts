@@ -24,3 +24,13 @@ export function base16ToString(base16: string) {
   }
   return dataString;
 }
+
+export function utf8ToString(utf8: string) {
+  const Unint8Array = fromString(utf8, 'utf8');
+  var dataString = '';
+  for (var i = 0; i < Unint8Array.length; i++) {
+    dataString += String.fromCharCode(Unint8Array[i]);
+  }
+  return dataString;
+}
+
