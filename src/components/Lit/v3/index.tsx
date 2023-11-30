@@ -2,7 +2,12 @@ import { css } from '@emotion/react';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import LitJsSDK from '@lit-protocol/lit-node-client';
 import { checkAndSignAuthMessage } from '@lit-protocol/auth-browser';
-import { encryptString, decryptToString } from '@lit-protocol/encryption';
+import {
+  encryptString,
+  decryptToString,
+  zipAndEncryptString,
+  decryptToZip,
+} from '@lit-protocol/encryption';
 import acl from './acl.json';
 import { base16ToString, stringToBase16, utf8ToString } from '@/utils';
 import { LitNodeClient } from '@lit-protocol/lit-node-client';
@@ -60,23 +65,67 @@ const Lit = function () {
     return authSig;
   };
 
-  const encrypt = async (withSessionSigs?: boolean) => {
-    let litNodeClientScoped = litNodeClient;
+  // const encrypt = async (withSessionSigs?: boolean) => {
+  //   let litNodeClientScoped = litNodeClient;
+  //   if (!litNodeClient) {
+  //     litNodeClientScoped = await initLit();
+  //   }
+
+  //   const { ciphertext, dataToEncryptHash } = await encryptString(
+  //     {
+  //       accessControlConditions: acl as any,
+  //       ...(withSessionSigs
+  //         ? { sessionSigs: await getSessionSigs() }
+  //         : { authSig: await getAuthSig(true) }),
+  //       chain: 'ethereum',
+  //       dataToEncrypt: 'this is a secret message',
+  //     },
+  //     litNodeClientScoped!,
+  //   );
+  //   console.log({
+  //     ciphertext,
+  //     dataToEncryptHash,
+  //   });
+  //   setCiphertext(ciphertext);
+  //   setDataToEncryptHash(dataToEncryptHash);
+  //   return {
+  //     ciphertext,
+  //     dataToEncryptHash,
+  //   };
+  // };
+
+  const encrypt = async () => {
+    let litNodeClientScoped = litNodeClient as LitNodeClient;
     if (!litNodeClient) {
       litNodeClientScoped = await initLit();
     }
+    const accessControlConditions = acl as any;
 
-    const { ciphertext, dataToEncryptHash } = await encryptString(
+    // case2
+    // const { publicKey } = litNodeClientScoped.getSessionKey();
+    // const uri = litNodeClientScoped.getSessionKeyUri(publicKey);
+    // const authSig = await authNeededCallback({ uri });
+
+    // case3
+    // const sessionSigs = await getSessionSigs();
+
+    // case4
+    const uri = 'did:key:z6Mkkc2wtZPpr7a6aubmXpH6okjGJU8YiAcMR796Ns1gYUPa';
+    const authSig = await authNeededCallback({
+      uri,
+    });
+
+    const { ciphertext, dataToEncryptHash } = await zipAndEncryptString(
       {
-        accessControlConditions: acl as any,
-        ...(withSessionSigs
-          ? { sessionSigs: await getSessionSigs() }
-          : { authSig: await getAuthSig(true) }),
+        accessControlConditions,
         chain: 'ethereum',
+        authSig,
+        // sessionSigs,
         dataToEncrypt: 'this is a secret message',
       },
-      litNodeClientScoped!,
+      litNodeClientScoped,
     );
+
     console.log({
       ciphertext,
       dataToEncryptHash,
@@ -87,6 +136,42 @@ const Lit = function () {
       ciphertext,
       dataToEncryptHash,
     };
+  };
+
+  const decrypt = async () => {
+    let litNodeClientScoped = litNodeClient as LitNodeClient;
+    if (!litNodeClient) {
+      litNodeClientScoped = await initLit();
+    }
+    const accessControlConditions = acl as any;
+
+    // case2
+    // const { publicKey } = litNodeClientScoped.getSessionKey();
+    // const uri = litNodeClientScoped.getSessionKeyUri(publicKey);
+    // const authSig = await authNeededCallback({ uri });
+
+    // case3
+    // const sessionSigs = await getSessionSigs();
+
+    // case4
+    const uri = 'did:key:z6Mkkc2wtZPpr7a6aubmXpH6okjGJU8YiAcMR796Ns1gYUPa';
+    const authSig = await authNeededCallback({
+      uri,
+    });
+
+    const decryptedFiles = await decryptToZip(
+      {
+        accessControlConditions,
+        chain: 'ethereum',
+        authSig,
+        // sessionSigs,
+        ciphertext,
+        dataToEncryptHash,
+      },
+      litNodeClientScoped,
+    );
+    const decryptedString = await decryptedFiles['string.txt'].async('text');
+    console.log('decrypted string: ', decryptedString);
   };
 
   const decryptWithLocalAuthSig = async (withSessionSigs?: boolean) => {
@@ -219,12 +304,12 @@ const Lit = function () {
     const sessionSigs = await litNodeClientScoped.getSessionSigs({
       chain: 'ethereum',
       resourceAbilityRequests: [
-        {
-          resource: litResource,
-          ability: LitAbility.AccessControlConditionDecryption,
-        },
+        // {
+        //   resource: litResource,
+        //   ability: LitAbility.AccessControlConditionDecryption,
+        // },
       ],
-      authNeededCallback,
+      // authNeededCallback,
     });
     return sessionSigs;
   };
@@ -257,6 +342,7 @@ const Lit = function () {
     >
       <button onClick={() => initLit()}>initLit</button>
       <button onClick={() => encrypt()}>encrypt</button>
+      <button onClick={() => decrypt()}>decrypt</button>
       <button onClick={() => decryptWithLocalAuthSig()}>decryptWithLocalAuthSig</button>
       <button onClick={() => decryptWithCeramicAuthSig()}>decryptWithCeramicAuthSig</button>
       <button onClick={() => stringToBase16Method()}>stringToBase16</button>
@@ -267,7 +353,7 @@ const Lit = function () {
       <button onClick={() => decryptWithSessionSig()}>decryptWithSessionSig</button>
       <button onClick={() => decryptWithAuthSig()}>decryptWithAuthSig</button>
       <br />
-      <br />   
+      <br />
       <br />
       <br />
     </div>

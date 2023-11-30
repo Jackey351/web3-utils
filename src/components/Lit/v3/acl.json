@@ -1,17 +1,5 @@
 [
   {
-    "contractAddress": "",
-    "standardContractType": "SIWE",
-    "chain": "ethereum",
-    "method": "",
-    "parameters": [":resources"],
-    "returnValueTest": {
-      "comparator": "contains",
-      "value": "lit://*"
-    }
-  },
-  { "operator": "and" },
-  {
     "conditionType": "evmBasic",
     "contractAddress": "",
     "standardContractType": "",
