@@ -13,6 +13,19 @@ const Lighthouse = function () {
     console.log(uploads);
   };
 
+  const upload = async (e: any) => {
+    let file = e.target.files[0];
+    console.log(file);
+    if (!file) {
+      return;
+    }
+
+    const uploadResponse = await lighthouse.upload([file], apiKey);
+    const cid = uploadResponse.data.Hash;
+
+    console.log(cid);
+  };
+
   return (
     <div
       css={css`
@@ -24,7 +37,13 @@ const Lighthouse = function () {
         }
       `}
     >
-      <button onClick={async () => getUploads()}>getUploads</button>
+      <button onClick={getUploads}>getUploads</button>
+      <input
+          type='file'
+          onChange={upload}
+          name='createBareFile'
+          style={{ width: "168px", marginLeft: "10px" }}
+        />
     </div>
   );
 };

@@ -1,0 +1,14 @@
+[
+  {
+    "conditionType": "evmBasic",
+    "contractAddress": "",
+    "standardContractType": "",
+    "chain": "ethereum",
+    "method": "",
+    "parameters": [":userAddress"],
+    "returnValueTest": {
+      "comparator": "=",
+      "value": "0x312eA852726E3A9f633A0377c0ea882086d66666"
+    }
+  }
+]
