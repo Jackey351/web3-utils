@@ -65,6 +65,11 @@ const cidToStreamId = () => {
   );
 };
 
+const fromStreamId = () => {
+  console.log(StreamID.fromString('kjzl6hvfrbw6c6q29co83n8av8krlst35wbojuhxxs2nfuykirbq4nndjjvdu3q'));
+};
+
+
 // const createStreamFromGenesis = async () => {
 //   const ceramic = new CeramicClient2();
 //   const a = {
@@ -107,6 +112,7 @@ export function Ceramic() {
       <button onClick={initCeramicClient}>initCeramicClient</button>
       <button onClick={updateStream}>updateStream</button>
       <button onClick={cidToStreamId}>cidToStreamId</button>
+      <button onClick={fromStreamId}>fromStreamId</button>
       {/* <button onClick={createStreamFromGenesis}>createStreamFromGenesis</button> */}
     </div>
   );

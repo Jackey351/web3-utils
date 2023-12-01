@@ -3,3 +3,4 @@ dist/
 pnpm-lock.yaml
 yarn-error.log
 yarn.lock
+.DS_Store
