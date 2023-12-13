@@ -13,6 +13,7 @@ import CoinBase from '@/components/Coinbase';
 import Huddle01 from '@/components/Huddle01';
 import MetaMaskSnap from '@/components/MetaMaskSnap';
 import Lit from '@/components/Lit';
+import Utils from '@/components/Utils';
 const ThirdwebStorage = React.lazy(() => import('@/components/ThirdwebStorage'));
 import Lighthouse from '@/components/Lighthouse';
 import Lens from '@/components/Lens';
@@ -58,6 +59,8 @@ const Page = function () {
           </LensProvider>
           <Route exact path="/MetaMaskSnap" component={MetaMaskSnap} />
           <Route exact path="/Lit" component={Lit} />
+          <Route exact path="/Utils" component={Utils} />
+          
         </Layout>
       </Switch>
     </AppContext.Provider>

@@ -2,6 +2,7 @@ import qs from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { toString } from 'uint8arrays/to-string';
 import { fromString } from 'uint8arrays/from-string';
+import parse from 'url-parse';
 
 export function useQuery<T = any>(): T {
   const { search } = useLocation();
@@ -23,4 +24,9 @@ export function base16ToString(base16: string) {
     dataString += String.fromCharCode(Unint8Array[i]);
   }
   return dataString;
+}
+
+export function getTopDomain(url: string) {
+  console.log(parse(url))
+  return parse(url).origin.split('.').slice(-2).join('.');
 }
