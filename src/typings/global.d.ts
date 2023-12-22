@@ -11,3 +11,5 @@ declare global {
 interface Window {
   snap: any;
 }
+
+declare const Module;

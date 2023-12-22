@@ -16,6 +16,7 @@ const index = function () {
       <button onClick={() => history.push('/Huddle01')}>Huddle01</button>
       <button onClick={() => history.push('/MetaMaskSnap')}>MetaMaskSnap</button>
       <button onClick={() => history.push('/Lit')}>Lit</button>
+      <button onClick={() => history.push('/ZK')}>ZK</button>
       <button onClick={() => history.push('/Utils')}>utils</button>
     </>
   );

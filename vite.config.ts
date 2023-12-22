@@ -36,7 +36,7 @@ const config = defineConfig({
   build: {
     target: "es2020",
     rollupOptions: {
-      plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+      // plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
       // external: ["@lit-protocol/sdk-nodejs"]
     },
   },

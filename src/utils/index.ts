@@ -27,6 +27,31 @@ export function base16ToString(base16: string) {
 }
 
 export function getTopDomain(url: string) {
-  console.log(parse(url))
+  console.log(parse(url));
   return parse(url).origin.split('.').slice(-2).join('.');
+}
+
+export function buffer2bits(buff: number[]) {
+  const res = [];
+  for (let i = 0; i < buff.length; i++) {
+    for (let j = 0; j < 8; j++) {
+      if ((buff[i] >> (7 - j)) & 1) {
+        res.push(1n);
+      } else {
+        res.push(0n);
+      }
+    }
+  }
+  return res;
+}
+
+export function convertToLength(hexInput: string, len: number) {
+  while (hexInput.length != len) {
+    hexInput = '0' + hexInput;
+  }
+  return hexInput;
+}
+
+export function intToLEBuffer(x: { toString: (arg0: number) => any }, bufSize: number) {
+  return Buffer.from(convertToLength(x.toString(16), bufSize * 2), 'hex').reverse();
 }

@@ -19,6 +19,7 @@ import Lighthouse from '@/components/Lighthouse';
 import Lens from '@/components/Lens';
 import { LensProvider, LensConfig, development, sandbox } from '@lens-protocol/react-web';
 import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import ZK from '@/components/ZK';
 
 const lensConfig: LensConfig = {
   bindings: wagmiBindings(),
@@ -59,8 +60,8 @@ const Page = function () {
           </LensProvider>
           <Route exact path="/MetaMaskSnap" component={MetaMaskSnap} />
           <Route exact path="/Lit" component={Lit} />
+          <Route exact path="/ZK" component={ZK} />
           <Route exact path="/Utils" component={Utils} />
-          
         </Layout>
       </Switch>
     </AppContext.Provider>
