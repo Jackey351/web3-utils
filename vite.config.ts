@@ -40,21 +40,21 @@ const config = defineConfig({
       // external: ["@lit-protocol/sdk-nodejs"]
     },
   },
-  // optimizeDeps: {
-  //   esbuildOptions: {
-  //     target: 'es2020',
-  //     define: {
-  //       global: "globalThis",
-  //     },
-  //     plugins: [
-  //       NodeGlobalsPolyfillPlugin({
-  //         process: true,
-  //         // buffer: true,
-  //       }),
-  //       NodeModulesPolyfillPlugin()
-  //     ],
-  //   },
-  // },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020',
+      define: {
+        global: "globalThis",
+      },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+          buffer: true,
+        }),
+        NodeModulesPolyfillPlugin()
+      ],
+    },
+  },
   esbuild: {
     jsxFactory: 'jsx',
     // jsxInject: `import { jsx } from '@emotion/react'`,

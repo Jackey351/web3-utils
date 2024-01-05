@@ -17,12 +17,12 @@ import { Web3 } from 'web3';
 
 LitJsSDK;
 const Lit = function () {
-  const [litNodeClient, setLitNodeClient] = useState<LitNodeClient>();
+  const [litNodeClient, setLitNodeClient] = useState<any>();
   const [ciphertext, setCiphertext] = useState<string>('');
   const [base16, setBase16] = useState<string>('');
   const [dataToEncryptHash, setDataToEncryptHash] = useState<string>('');
 
-  const initLit = async (): Promise<LitNodeClient> => {
+  const initLit = async (): Promise<any> => {
     const client = new globalThis.LitNodeClient({
       alertWhenUnauthorized: false,
       debug: false,
@@ -95,7 +95,7 @@ const Lit = function () {
   // };
 
   const encrypt = async () => {
-    let litNodeClientScoped = litNodeClient as LitNodeClient;
+    let litNodeClientScoped = litNodeClient as any;
     if (!litNodeClient) {
       litNodeClientScoped = await initLit();
     }
@@ -139,7 +139,7 @@ const Lit = function () {
   };
 
   const decrypt = async () => {
-    let litNodeClientScoped = litNodeClient as LitNodeClient;
+    let litNodeClientScoped = litNodeClient as any;
     if (!litNodeClient) {
       litNodeClientScoped = await initLit();
     }
@@ -235,7 +235,7 @@ const Lit = function () {
 
   const authNeededCallback = async ({
     resources,
-    expiration,
+    expiration = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
     uri,
   }: {
     resources?: string[];
@@ -254,7 +254,7 @@ const Lit = function () {
       uri,
       version: '1',
       chainId: 1,
-      expirationTime: expiration,
+      ...(expiration && { expirationTime: expiration }),
       resources,
     });
     const toSign = message.prepareMessage();
@@ -315,7 +315,7 @@ const Lit = function () {
   };
 
   const encryptWithSessionSig = async () => {
-    await encrypt(true);
+    await encrypt();
   };
 
   const decryptWithSessionSig = async () => {
