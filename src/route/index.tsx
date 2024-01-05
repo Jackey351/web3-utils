@@ -20,6 +20,7 @@ import Lens from '@/components/Lens';
 import { LensProvider, LensConfig, development, sandbox } from '@lens-protocol/react-web';
 import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
 import ZK from '@/components/ZK';
+import Ethers from '@/components/Ethers';
 
 const lensConfig: LensConfig = {
   bindings: wagmiBindings(),
@@ -41,6 +42,7 @@ const Page = function () {
           <Route exact path="/" component={index} />
           <Route exact path="/WalletConnect" component={WalletConnect} />
           <Route exact path="/Wagmi" component={Wagmi} />
+          <Route exact path="/Ethers" component={Ethers} />
           <Route exact path="/Pinata" component={Pinata} />
           <Route
             exact
