@@ -18,11 +18,10 @@ const config = defineConfig({
       // stream: 'stream-browserify',
       zlib: 'browserify-zlib',
       '@': resolve(__dirname, './src'),
-      // buffer: "rollup-plugin-node-polyfills/polyfills/buffer-es6", // add buffer
-      // buffer: resolve(
-      //   __dirname,
-      //   './node_modules/rollup-plugin-node-polyfills/polyfills/buffer-es6',
-      // ),
+      buffer: resolve(
+        __dirname,
+        './node_modules/rollup-plugin-node-polyfills/polyfills/buffer-es6.js',
+      ),
     },
   },
   // base: '/',
@@ -36,7 +35,7 @@ const config = defineConfig({
   build: {
     target: "es2020",
     rollupOptions: {
-      // plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+      plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
       // external: ["@lit-protocol/sdk-nodejs"]
     },
   },
@@ -49,7 +48,7 @@ const config = defineConfig({
   //     plugins: [
   //       NodeGlobalsPolyfillPlugin({
   //         process: true,
-  //         // buffer: true,
+  //         buffer: true,
   //       }),
   //       NodeModulesPolyfillPlugin()
   //     ],
