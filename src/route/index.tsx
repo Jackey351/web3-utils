@@ -9,6 +9,7 @@ import Pinata from '@/components/Pinata';
 import index from '../page';
 import { pinataClient } from '../sdk';
 import { Ceramic } from '@/components/Ceramic';
+import Dataverse from '@/components/Dataverse';
 import CoinBase from '@/components/Coinbase';
 import Huddle01 from '@/components/Huddle01';
 import MetaMaskSnap from '@/components/MetaMaskSnap';
@@ -55,6 +56,7 @@ const Page = function () {
           />
           <Route exact path="/Lighthouse" component={Lighthouse} />
           <Route exact path="/Ceramic" component={Ceramic} />
+          <Route exact path="/Dataverse" component={Dataverse} />
           <Route exact path="/Huddle01" component={Huddle01} />
           <Route exact path="/CoinBase" component={CoinBase} />
           <LensProvider config={lensConfig}>

@@ -13,3 +13,4 @@ interface Window {
 }
 
 declare const Module;
+declare module 'url-parse';

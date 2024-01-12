@@ -4,7 +4,6 @@ import { Ed25519Provider } from 'key-did-provider-ed25519';
 import { DID } from 'dids';
 import KeyDidResolver from 'key-did-resolver';
 import { SiweMessage } from 'ceramic-cacao';
-import { Extension, RuntimeConnector, WALLET } from '@dataverse/runtime-connector';
 
 export async function siwe() {
   let resources = ['ceramic://*?model=kjzl6hvfrbw6c86gt9j415yw2x8stmkotcrzpeutrbkp42i4z90gp5ibptz4sso'];

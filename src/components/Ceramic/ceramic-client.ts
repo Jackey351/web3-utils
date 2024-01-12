@@ -13,9 +13,9 @@ export async function initCeramicClient() {
   await didKeyWithCap.authenticate();
 
   const ceramic = new CeramicClient(ceramicAPI);
-  
+
   ceramic.did = didKeyWithCap;
-  console.log(ceramic.did)
+  console.log(ceramic.did);
   const pkh = ceramic.did?.parent;
 
   return ceramic;
