@@ -6,7 +6,7 @@ const ipfs = new IPFS();
 let cid: string = 'QmTuy7MBuHJNbyNYxTz8cdge1Xb97H6aMZxyJegWBBHAcj';
 
 const Dataverse = function () {
-  const [binaryFile, setBinaryFile] = useState<string>();
+  const [originFile, setOriginFile] = useState<string>();
   const [contentType, setContentType] = useState<string>();
 
   const handleSelectFile = async () => {
@@ -24,20 +24,29 @@ const Dataverse = function () {
 
   const uploadFile = async () => {
     const file = await handleSelectFile();
-    cid = await ipfs.uploadFile(file);
+    console.log(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    const fileBase64: string = await new Promise((resolve) => {
+      reader.addEventListener('load', async (e: any) => {
+        resolve(e.target.result);
+      });
+    });
+    console.log(fileBase64);
+    cid = await ipfs.uploadFile(fileBase64);
     console.log(cid);
   };
 
   const getFileContentType = async () => {
     const contentType = await ipfs.getFileContentType(cid);
-    setContentType(contentType);
     console.log(contentType);
+    setContentType(contentType);
   };
 
   const retriveFile = async () => {
-    const binaryFile = await ipfs.retriveFile(cid);
-    console.log(binaryFile);
-    setBinaryFile(binaryFile);
+    const originFile = await ipfs.retriveFile(cid);
+    console.log(originFile);
+    setOriginFile(originFile);
   };
 
   return (
@@ -57,6 +66,7 @@ const Dataverse = function () {
         <button onClick={async () => retriveFile()}>retriveFile</button>
       </div>
       {contentType?.includes('image') && <img src={ipfs.getFileLink(cid)} />}
+      {originFile?.match('data:image/.*;base64,') && <img src={originFile} />}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { initCeramicClient } from '../Ceramic/ceramic-client';
 import { baseURL } from './constant';
 
 export class IPFS {
-  async uploadFile(file: File): Promise<string> {
+  async uploadFile(file: File | ArrayBuffer | string): Promise<string> {
     const codeRes = await axios.post(`${baseURL}/v0/code`);
     const jws = await createJWS({
       code: codeRes.data.code,
