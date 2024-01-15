@@ -9,6 +9,7 @@ export async function siwe() {
   let resources = ['ceramic://*?model=kjzl6hvfrbw6c86gt9j415yw2x8stmkotcrzpeutrbkp42i4z90gp5ibptz4sso'];
 
   const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+  await provider.send("eth_requestAccounts", []);
   const signer = provider.getSigner();
   const address = await signer.getAddress();
 
