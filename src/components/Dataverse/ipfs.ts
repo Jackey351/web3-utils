@@ -19,6 +19,16 @@ export class IPFS {
     return res.data.cid.replace('ipfs://', '');
   }
 
+  // async removeFile(cid: string): Promise<string> {
+  //   const codeRes = await axios.post(`${baseURL}/v0/code`);
+  //   const res = await axios.delete(`${baseURL}/v0/upload`, file, {
+  //     headers: {
+  //       Authorization: `Bearer ${jws}`,
+  //     },
+  //   });
+  //   return res.data.cid.replace('ipfs://', '');
+  // }
+
   getFileLink(cid: string): string {
     return `${baseURL}/ipfs/${cid}`;
   }

@@ -12,6 +12,7 @@ const index = function () {
       <button onClick={() => history.push('/MetaMaskSnap')}>MetaMaskSnap</button>
       <button onClick={() => history.push('/CoinBase')}>CoinBase</button>
       <button onClick={() => history.push('/WalletConnect')}>WalletConnect</button>
+      <button onClick={() => history.push('/Web3Auth')}>Web3Auth</button>
       <button onClick={() => history.push('/Ceramic')}>Ceramic</button>
       <button onClick={() => history.push('/Dataverse')}>Dataverse</button>
       <button onClick={() => history.push('/Lit')}>Lit</button>

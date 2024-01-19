@@ -11,6 +11,7 @@ import { pinataClient } from '../sdk';
 import { Ceramic } from '@/components/Ceramic';
 import Dataverse from '@/components/Dataverse';
 import CoinBase from '@/components/Coinbase';
+import Web3Auth from '@/components/Web3Auth';
 import Huddle01 from '@/components/Huddle01';
 import MetaMaskSnap from '@/components/MetaMaskSnap';
 import Lit from '@/components/Lit';
@@ -42,6 +43,9 @@ const Page = function () {
         <Layout>
           <Route exact path="/" component={index} />
           <Route exact path="/WalletConnect" component={WalletConnect} />
+          <Route exact path="/CoinBase" component={CoinBase} />
+          <Route exact path="/Web3Auth" component={Web3Auth} />
+          <Route exact path="/MetaMaskSnap" component={MetaMaskSnap} />
           <Route exact path="/Wagmi" component={Wagmi} />
           <Route exact path="/Ethers" component={Ethers} />
           <Route exact path="/Pinata" component={Pinata} />
@@ -58,11 +62,9 @@ const Page = function () {
           <Route exact path="/Ceramic" component={Ceramic} />
           <Route exact path="/Dataverse" component={Dataverse} />
           <Route exact path="/Huddle01" component={Huddle01} />
-          <Route exact path="/CoinBase" component={CoinBase} />
           <LensProvider config={lensConfig}>
             <Route exact path="/Lens" component={Lens} />
           </LensProvider>
-          <Route exact path="/MetaMaskSnap" component={MetaMaskSnap} />
           <Route exact path="/Lit" component={Lit} />
           <Route exact path="/ZK" component={ZK} />
           <Route exact path="/Utils" component={Utils} />
