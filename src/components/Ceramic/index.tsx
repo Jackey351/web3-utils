@@ -1,6 +1,6 @@
 import { ApolloClient, gql } from '@apollo/client';
 import { initApolloClient as _initApolloClient } from './apollo-client';
-import { initCeramicClient as _initCeramicClient } from './ceramic-client';
+import { Ceramic as CeramicClass } from './ceramic-client';
 import { CeramicClient } from '@ceramicnetwork/http-client';
 import { ModelInstanceDocument } from '@ceramicnetwork/stream-model-instance';
 import { CID } from 'multiformats/cid';
@@ -47,7 +47,7 @@ export function Ceramic() {
   };
 
   const initCeramicClient = async () => {
-    ceramic = await _initCeramicClient();
+    ceramic = await new CeramicClass().initCeramicClient();
   };
 
   const updateStream = async () => {

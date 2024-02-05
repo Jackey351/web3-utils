@@ -46,7 +46,14 @@ export async function siwe() {
   // create cacao object
   siweMessage.signature = signature;
 
-  return { siweMessage, didKey, keySeed };
+  const authSig = {
+    sig: signature,
+    signedMessage: message,
+    derivedVia: "web3.eth.personal.sign",
+    address,
+  };
+  console.log(authSig)
+  return { siweMessage, authSig, didKey, keySeed };
 }
 
 async function createDIDKey(seed?: Uint8Array): Promise<DID> {

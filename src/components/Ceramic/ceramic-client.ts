@@ -3,20 +3,26 @@ import { Cacao } from 'ceramic-cacao';
 import { CeramicClient } from '@ceramicnetwork/http-client';
 import { ceramicAPI } from './config';
 
-export async function initCeramicClient() {
-  const { siweMessage, didKey, keySeed } = await siwe();
+export class Ceramic {
+  authSig?: object;
+  siweMessage?: object;
 
-  const cacao = Cacao.fromSiweMessage(siweMessage);
+  async initCeramicClient() {
+    const { siweMessage, didKey, authSig, keySeed } = await siwe();
+    this.authSig = authSig;
+    this.siweMessage = siweMessage;
+    const cacao = Cacao.fromSiweMessage(siweMessage);
 
-  // attach cacao to ceramic client
-  const didKeyWithCap = didKey.withCapability(cacao);
-  await didKeyWithCap.authenticate();
+    // attach cacao to ceramic client
+    const didKeyWithCap = didKey.withCapability(cacao);
+    await didKeyWithCap.authenticate();
 
-  const ceramic = new CeramicClient(ceramicAPI);
+    const ceramic = new CeramicClient(ceramicAPI);
 
-  ceramic.did = didKeyWithCap;
-  console.log(ceramic.did);
-  const pkh = ceramic.did?.parent;
-
-  return ceramic;
+    ceramic.did = didKeyWithCap;
+    console.log(ceramic.did);
+    const pkh = ceramic.did?.parent;
+    console.log(ceramic);
+    return ceramic;
+  }
 }

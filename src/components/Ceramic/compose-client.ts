@@ -1,10 +1,10 @@
-import { initCeramicClient } from './ceramic-client';
+import { Ceramic } from './ceramic-client';
 import { ComposeClient } from '@composedb/client';
 import { Composite } from '@composedb/devtools';
 import { ceramicAPI } from './config';
 
 export async function initComposeClient() {
-  const ceramic = await initCeramicClient();
+  const ceramic = await new Ceramic().initCeramicClient();
   console.log(ceramic);
   const composite = await Composite.fromModels({
     ceramic,

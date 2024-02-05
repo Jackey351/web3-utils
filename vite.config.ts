@@ -4,10 +4,21 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 import { resolve } from 'path';
 import inject from '@rollup/plugin-inject';
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
+// import { replaceCodePlugin } from 'vite-plugin-replace';
 
 const config = defineConfig({
-  plugins: [reactRefresh()],
+  plugins: [
+    reactRefresh(),
+    // replaceCodePlugin({
+    //   replacements: [
+    //     {
+    //       from: 'auth.privy.io',
+    //       to: 'api-privy.meteor.computer',
+    //     },
+    //   ],
+    // }),
+  ],
   resolve: {
     // dedupe: ['react', 'react-dom'],
     alias: {
@@ -33,9 +44,9 @@ const config = defineConfig({
   //   },
   // },
   build: {
-    target: "es2020",
+    target: 'es2020',
     rollupOptions: {
-      plugins: [inject({ Buffer: ["buffer", "Buffer"] })],
+      plugins: [inject({ Buffer: ['buffer', 'Buffer'] })],
       // external: ["@lit-protocol/sdk-nodejs"]
     },
   },
@@ -72,6 +83,10 @@ const config = defineConfig({
     proxy: {
       '/create-iframe-room': {
         target: 'https://api.huddle01.com/api/v1',
+        changeOrigin: true,
+      },
+      '/analytics_events': {
+        target: 'https://api-meteor-computer.dataverseos.workers.dev/privy/api/v1',
         changeOrigin: true,
       },
     },

@@ -49,6 +49,11 @@ const Dataverse = function () {
     setOriginFile(originFile);
   };
 
+  const getBlockSum = async () => {
+    const blockSum = await ipfs.getBlockSum();
+    console.log(blockSum);
+  };
+
   return (
     <div>
       <div
@@ -64,6 +69,7 @@ const Dataverse = function () {
         <button onClick={async () => uploadFile()}>uploadFile</button>
         <button onClick={async () => getFileContentType()}>getFileContentType</button>
         <button onClick={async () => retriveFile()}>retriveFile</button>
+        <button onClick={async () => getBlockSum()}>getBlockSum</button>
       </div>
       {contentType?.includes('image') && <img src={ipfs.getFileLink(cid)} />}
       {originFile?.match('data:image/.*;base64,') && <img src={originFile} />}

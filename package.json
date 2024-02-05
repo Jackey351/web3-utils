@@ -1,5 +1,5 @@
 {
-  "name": "frontend-framework",
+  "name": "web3-utils",
   "version": "1.0.0",
   "author": "",
   "lint-staged": {
@@ -45,8 +45,10 @@
     "@opentelemetry/sdk-trace-base": "^1.17.0",
     "@opentelemetry/semantic-conventions": "^1.17.0",
     "@pinata/sdk": "^2.1.0",
+    "@privy-io/react-auth": "^1.54.0",
     "@rollup/plugin-inject": "^5.0.4",
     "@thirdweb-dev/storage": "^1.2.10",
+    "@walletconnect/ethereum-provider": "^2.9.1",
     "@web3auth/base": "^7.3.1",
     "@web3auth/modal": "^7.3.1",
     "@web3modal/ethereum": "^2.4.1",

@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { ReactNode, useContext, useEffect, useState } from 'react';
 import AppContext from '../context/AppContext';
 import { Route, Switch } from 'react-router-dom';
-import WalletConnect from '@/components/WalletConnect/index2';
+import WalletConnect from '@/components/WalletConnect';
 import Wagmi from '@/components/Wagmi/index2';
 import Pinata from '@/components/Pinata';
 import index from '../page';
@@ -11,6 +11,7 @@ import { pinataClient } from '../sdk';
 import { Ceramic } from '@/components/Ceramic';
 import Dataverse from '@/components/Dataverse';
 import CoinBase from '@/components/Coinbase';
+import Privy from '@/components/Privy';
 import Web3Auth from '@/components/Web3Auth';
 import Huddle01 from '@/components/Huddle01';
 import MetaMaskSnap from '@/components/MetaMaskSnap';
@@ -45,6 +46,7 @@ const Page = function () {
           <Route exact path="/WalletConnect" component={WalletConnect} />
           <Route exact path="/CoinBase" component={CoinBase} />
           <Route exact path="/Web3Auth" component={Web3Auth} />
+          <Route exact path="/Privy" component={Privy} />
           <Route exact path="/MetaMaskSnap" component={MetaMaskSnap} />
           <Route exact path="/Wagmi" component={Wagmi} />
           <Route exact path="/Ethers" component={Ethers} />

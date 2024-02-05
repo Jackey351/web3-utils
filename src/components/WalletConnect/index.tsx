@@ -1,31 +1,37 @@
-import React from 'react';
-import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum';
-import { Web3Modal } from '@web3modal/react';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { arbitrum, mainnet, polygon } from 'wagmi/chains';
-import { Web3Button } from '@web3modal/react';
+import React, { useState } from 'react';
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
+import { ethers } from 'ethers';
 
-const chains = [arbitrum, mainnet, polygon];
 const projectId = 'de2a6e522f354b90448adfa7c76d9c05';
 
-// console.log(w3mProvider({ projectId })(mainnet))
-// console.log(await w3mConnectors({ projectId, version: 1, chains })[0].getProvider())
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors: w3mConnectors({ projectId, version: 1, chains }),
-  publicClient,
-});
-const ethereumClient = new EthereumClient(wagmiConfig, chains);
-console.log(ethereumClient);
-
 function WalletConnect() {
+  const [address, setAddress] = useState('');
+  const connect = async () => {
+    console.log(1)
+    console.log(projectId)
+    const client = await EthereumProvider.init({
+      projectId,
+      showQrModal: true,
+      chains: [1],
+      methods: ['eth_sendTransaction', 'personal_sign'],
+      events: ['chainChanged', 'accountsChanged'],
+    });
+
+    console.log(2)
+    await client.enable();
+    console.log(3)
+    
+    const provider = new ethers.providers.Web3Provider(client);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    const { chainId } = await provider.getNetwork();
+    console.log(signer, address, chainId);
+    setAddress(address);
+  };
+
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
-        <Web3Button />
-      </WagmiConfig>
-      <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+      {address} <button onClick={connect}>connect</button>
     </>
   );
 }
